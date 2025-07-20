@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Розділ у розробці</title>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'PT Mono', monospace;
+      font-size: 16px;
+      background: #DBDED3;
+      color: #000000;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      border: 2px solid #7E8272;
+      background: #DBDED3;
+      padding: 40px 40px; /* Тепер 40px зверху-знизу і 40px зліва-справа */
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      position: relative;
+      text-align: center;
+    }
+
+    .circle {
+      width: 10px;
+      height: 10px;
+      background: #DBDED3;
+      border: 2px solid #7E8272;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .top.left    { top: -6px; left: -6px; }
+    .top.right   { top: -6px; right: -6px; }
+    .bottom.left { bottom: -6px; left: -6px; }
+    .bottom.right{ bottom: -6px; right: -6px; }
+
+    h1 {
+      font-size: clamp(32px, 6vw, 64px);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #000000;
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 15px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      border: 2px solid #7E8272;
+      background: #DBDED3;
+      text-align: center;
+      font-family: 'PT Mono', monospace;
+      position: relative;
+    }
+
+    .footer-circle {
+      width: 10px;
+      height: 10px;
+      background: #DBDED3;
+      border: 2px solid #7E8272;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .footer-circle.top.left     { top: -6px; left: -6px; }
+    .footer-circle.top.right    { top: -6px; right: -6px; }
+    .footer-circle.bottom.left  { bottom: -6px; left: -6px; }
+    .footer-circle.bottom.right { bottom: -6px; right: -6px; }
+
+    footer h3 {
+      font-size: clamp(12px, 2vw, 14px);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="circle top left"></div>
+    <div class="circle top right"></div>
+    <div class="circle bottom left"></div>
+    <div class="circle bottom right"></div>
+
+    <p>Цей розділ ще не готовий.</p>
+    <p>Будь ласка, зайдіть пізніше.</p>
+    <p><a href="index.html">Повернутися на головну</a></p>
+  </div>
+
+</body>
+</html>
