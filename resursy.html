@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Радіозв'язок — Ресурси</title>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">
+    <style>
+        /* БАЗОВІ СТИЛІ ТА ОБНУЛЕННЯ */
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-size:16px;color:#000000;background:#DBDED3;min-height:100vh;padding:10px;font-family:'PT Mono',monospace;}
+        .container{width:100%;max-width:1200px;margin:0 auto;}
+        a{color:#000000;text-decoration:underline;}
+
+        /* ДЕКОРАТИВНІ КОЛА */
+        .circle, .footer-circle, .nav-circle {
+            width:10px;height:10px;position:absolute;background:#DBDED3;
+            border:2px solid #7e8272;border-radius:50%;z-index:10;
+        }
+        .circle.top, .footer-circle.top, .nav-circle.top {top:-6px;}
+        .circle.bottom, .footer-circle.bottom, .nav-circle.bottom {bottom:-6px;}
+        .circle.left, .footer-circle.left, .nav-circle.left {left:-6px;}
+        .circle.right, .footer-circle.right, .nav-circle.right {right:-6px;}
+
+        /* HEADER / NAVIGATION */
+        .nav-container {
+            width: 100%; max-width: 1200px; margin: 0 auto 20px;
+            position: relative; border: 2px solid #7E8272;
+            background: #DBDED3; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 10px;
+        }
+        .nav { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .nav-title { 
+            text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; 
+            font-weight: bold; margin-right: auto; padding: 0.3rem; 
+        }
+        .nav-title a { text-decoration: none; }
+        .nav-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .nav a {
+            text-decoration: none; text-transform: uppercase;
+            letter-spacing: 1px; font-size: 0.8rem; position: relative; padding: 0.3rem;
+        }
+        .nav a:hover:before { content: '['; position: absolute; left: -3px; }
+        .nav a:hover:after { content: ']'; position: absolute; right: -3px; }
+
+        .mobile-menu-btn {
+            display: none; background: none; border: none;
+            font-size: 1.2rem; cursor: pointer; color: #000; font-family: 'PT Mono';
+        }
+
+        /* ФІЛЬТРИ (ПАНЕЛЬ) */
+        .filter-panel {
+            position: relative; border: 2px solid #7E8272;
+            background: #DBDED3; padding: 20px; margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .filter-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 15px; flex-wrap: wrap; gap: 15px;
+        }
+        .search-box {
+            background: transparent; border: 2px solid #7E8272;
+            padding: 8px 12px; font-family: inherit; width: 100%; max-width: 350px;
+        }
+        .tags-container {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            max-height: 160px; overflow-y: auto; padding-top: 10px;
+            border-top: 1px solid rgba(126, 130, 114, 0.3);
+        }
+        .tag-btn {
+            background: transparent; border: 1px solid #7E8272;
+            padding: 4px 10px; font-size: 11px; cursor: pointer;
+            text-transform: uppercase; font-family: inherit;
+        }
+        .tag-btn.active { background: #7E8272; color: #DBDED3; }
+
+        /* СІТКА КАРТОК (БЕЗ НАКЛАДАННЯ БОРДЕРІВ) */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px; /* Створює простір між картками, щоб бордери не злипалися */
+            margin-bottom: 30px;
+        }
+        .card {
+            position: relative; border: 2px solid #7E8272;
+            padding: 20px; display: flex; flex-direction: column;
+            background: #DBDED3; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .card-meta { font-size: 10px; color: #666; margin-bottom: 10px; text-transform: uppercase; }
+        .card h3 { font-size: 17px; margin-bottom: 12px; text-transform: uppercase; line-height: 1.2; }
+        .card p { font-size: 13px; line-height: 1.5; margin-bottom: 40px; }
+        
+        .read-more {
+            position: absolute; right: 15px; bottom: 15px;
+            font-size: 11px; text-transform: uppercase; text-decoration: none;
+            border: 1px solid #7E8272; padding: 5px 10px;
+        }
+        .read-more:hover { background: #7E8272; color: #DBDED3; }
+
+        /* FOOTER */
+        footer {
+            width: 100%; max-width: 1200px; margin: 30px auto 0;
+            position: relative; border: 2px solid #7E8272;
+            background: #DBDED3; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 15px; text-align: center;
+        }
+        footer h3 { font-size: clamp(10px, 2vw, 13px); font-weight: 400; text-transform: uppercase; }
+
+        /* АДАПТИВНІСТЬ */
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; margin: 0 auto; }
+            .nav { display: none; flex-direction: column; padding: 10px 0; }
+            .nav.active { display: flex; }
+            .nav-title { margin-right: 0; text-align: center; width: 100%; }
+            .nav-links { flex-direction: column; width: 100%; align-items: center; }
+            .resources-grid { grid-template-columns: 1fr; }
+            .filter-header { flex-direction: column; align-items: stretch; }
+            .search-box { max-width: 100%; }
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="nav-container">
+    <div class="circle top left"></div><div class="circle top right"></div>
+    <div class="circle bottom left"></div><div class="circle bottom right"></div>
+    <button class="mobile-menu-btn" id="menuToggle">☰ МЕНЮ</button>
+    <nav class="nav" id="mainNav">
+        <div class="nav-title"><a href="index.html">РАДІОЗВʼЯЗОК</a></div>
+        <div class="nav-links">
+            <a href="statti.html">Статті</a>
+            <a href="#">Навчання</a>
+            <a href="#">Технології</a>
+            <a href="#">Ресурси</a>
+            <a href="pro-nas.html">Про нас</a>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="filter-panel">
+        <div class="circle top left"></div><div class="circle top right"></div>
+        <div class="circle bottom left"></div><div class="circle bottom right"></div>
+        
+        <div class="filter-header">
+            <h2 style="font-size: 16px; letter-spacing: 2px;">БІБЛІОТЕКА РЕСУРСІВ</h2>
+            <input type="text" id="searchInput" class="search-box" placeholder="ПОШУК ЗА НАЗВОЮ...">
+        </div>
+
+        <div class="tags-container" id="tagsCloud">
+            <button class="tag-btn active" data-tag="all">Усі</button>
+            <button class="tag-btn" data-tag="антени">антени</button>
+            <button class="tag-btn" data-tag="sdr">SDR</button>
+            <button class="tag-btn" data-tag="цифра">цифра</button>
+            <button class="tag-btn" data-tag="кх">КХ</button>
+            <button class="tag-btn" data-tag="укх">УКХ</button>
+            <button class="tag-btn" data-tag="супутники">супутники</button>
+            <button class="tag-btn" data-tag="lora">LoRa</button>
+            <button class="tag-btn" data-tag="mesh">Mesh</button>
+            <button class="tag-btn" data-tag="diy">DIY</button>
+            <button class="tag-btn" data-tag="протоколи">протоколи</button>
+            <button class="tag-btn" data-tag="безпека">безпека</button>
+            <button class="tag-btn" data-tag="сканери">сканери</button>
+            <button class="tag-btn" data-tag="софт">софт</button>
+            <button class="tag-btn" data-tag="залізо">залізо</button>
+            <button class="tag-btn" data-tag="андроїд">Android</button>
+            <button class="tag-btn" data-tag="література">література</button>
+            <button class="tag-btn" data-tag="історія">історія</button>
+            <button class="tag-btn" data-tag="тести">тести</button>
+            <button class="tag-btn" data-tag="базові">базові</button>
+            <button class="tag-btn" data-tag="антени-кв">антени КВ</button>
+        </div>
+    </div>
+
+    <div class="resources-grid" id="resGrid">
+        
+        <div class="card" data-tags="історія базові">
+            <div class="card-meta">#історія #базові</div>
+            <h3>Історія радіозв'язку ч.1</h3>
+            <p>Відкриття радіохвиль, періоди розвитку та перші апарати Попова і Марконі.</p>
+            <a href="#" class="read-more">Читати</a>
+        </div>
+
+        <div class="card" data-tags="антени diy кх">
+            <div class="card-meta">#антени #diy #кх</div>
+            <h3>Диполь своїми руками</h3>
+            <p>Покрокова інструкція по збірці антени для КХ діапазону з підручних засобів.</p>
+            <a href="#" class="read-more">Читати</a>
+        </div>
+
+        <div class="card" data-tags="sdr софт сканери">
+            <div class="card-meta">#sdr #софт #сканери</div>
+            <h3>Моніторинг з RTL-SDR</h3>
+            <p>Огляд найкращого програмного забезпечення для радіосканерів у 2026 році.</p>
+            <a href="#" class="read-more">Читати</a>
+        </div>
+
+        <div class="card" data-tags="lora mesh цифра">
+            <div class="card-meta">#lora #mesh #цифра</div>
+            <h3>Мережі Meshtastic</h3>
+            <p>Побудова децентралізованої мережі обміну повідомленнями без інтернету.</p>
+            <a href="#" class="read-more">Читати</a>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <div class="footer-circle top left"></div><div class="footer-circle top right"></div>
+    <div class="footer-circle bottom left"></div><div class="footer-circle bottom right"></div>
+    <h3>© 2026 | Всі права захищені | <a href="mailto:mykola.telychko@outlook.com">mykola.telychko@outlook.com</a></h3>
+</footer>
+
+<script>
+    // Мобільне меню
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    menuToggle.addEventListener('click', () => mainNav.classList.toggle('active'));
+
+    // Фільтрація
+    const searchInput = document.getElementById('searchInput');
+    const tagBtns = document.querySelectorAll('.tag-btn');
+    const cards = document.querySelectorAll('.card');
+
+    let currentTag = 'all';
+
+    function filterData() {
+        const query = searchInput.value.toLowerCase();
+
+        cards.forEach(card => {
+            const title = card.querySelector('h3').innerText.toLowerCase();
+            const tags = card.getAttribute('data-tags').toLowerCase();
+            
+            const matchTag = (currentTag === 'all' || tags.includes(currentTag));
+            const matchSearch = title.includes(query);
+
+            if(matchTag && matchSearch) {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+    }
+
+    tagBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tagBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentTag = btn.getAttribute('data-tag');
+            filterData();
+        });
+    });
+
+    searchInput.addEventListener('input', filterData);
+</script>
+
+</body>
+</html>
